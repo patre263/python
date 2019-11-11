@@ -2,7 +2,8 @@ import argparse
 
 def analyser_commande():
     parser = argparse.ArgumentParser(description='Donne un nom au joueur')
-    parser.add_argument('i', 'idul',  metavar='idul', type=str, help='un nom pour le joueur')
+    parser.add_argument('idul', help='un nom pour le joueur')
+    parser.add_argument('-l', '--lister', action='store_true' , help='Lister les identifiants de vos 20 dernières parties.')
     args = parser.parse_args()
     return args
 
@@ -16,43 +17,36 @@ def afficher_damier_ascii(dict):
         sui += str(9-i)+' | '+8*'.   '+'. |'+'\n'+'  |                                   |'+'\n'
     fin = '1 | .   .   .   .   .   .   .   .   . |'+'\n'+'--|-----------------------------------'+'\n'+'  | 1   2   3   4   5   6   7   8   9'
     tot = list(sui+fin)
-    k = 0
     for j in range(len(dict)):
-        k +=1
-        tot[40*(18-2*dict['joueurs'][j]['pos'][1])+4*dict['joueurs'][j]['pos'][0]] = str(k)
+        tot[40*(18-2*dict['joueurs'][j]['pos'][1])+4*dict['joueurs'][j]['pos'][0]] = str(j+1)
     for i in dict['murs']['horizontaux']:
-        tot[40*(19-2*i[1])+4*i[0]-1] = '-'
-        tot[40*(19-2*i[1])+4*i[0]] = '-'
-        tot[1+40*(19-2*i[1])+4*i[0]] = '-'
-        tot[2+40*(19-2*i[1])+4*i[0]] = '-'
-        tot[3+40*(19-2*i[1])+4*i[0]] = '-'
-        tot[4+40*(19-2*i[1])+4*i[0]] = '-'
-        tot[5+40*(19-2*i[1])+4*i[0]] = '-'
+        for b in range(7):
+            tot[40*(19-2*i[1])+4*i[0]-1+b] = '-'
     for l in dict['murs']['verticaux']:
-        tot[40*(18-2*l[1])+4*l[0]-2] = '|'
-        tot[40*(17-2*l[1])+4*l[0]-2] = '|'
-        tot[40*(16-2*l[1])+4*l[0]-2] = '|'
+        for c in range(3):
+            tot[40*(18-c-2*l[1])+4*l[0]-2] = '|'
     return deb + ''.join(tot)
 
-import requests
+from api import *
 
-def lister_partie(idulenchaine): 
-    url_base = 'https://python.gel.ulaval.ca/quoridor/api/'
-    rep = requests.get(url_base+'lister/', params={'idul':idulenchaine})
-    if rep.status_code == 200:
-        rep = rep.json()
-        return(rep)
-    else:
-        return(f"Le GET sur {url_base+'lister'} a produit le code d'erreur {rep.status_code}.")
 
-def debuter_partie(idulenchaine):
-    url_base = 'https://python.gel.ulaval.ca/quoridor/api/'
-    rep = requests.post(url_base+'débuter/', data={'idul': idulenchaine})
-    return(rep.json())
-
-def jouer_coup(id_partie, type_coup, position):
-    url_base = 'https://python.gel.ulaval.ca/quoridor/api/'
-    rep = requests.post(url_base+'jouer/', data={'id': id_partie, 'type': type_coup, 'pos': position})
-    return(rep.json())
-
-    
+if analyser_commande().lister:
+    print(lister_partie(analyser_commande().idul))
+else:
+    IDUL = analyser_commande().idul
+    v = debuter_partie(IDUL)
+    print(afficher_damier_ascii(v['état']))
+    id = (v['id'])
+    v = 0
+    while v < 1:
+        b = input('type de coup ? D, MH ou MV ')
+        c = input('point ? (x, y) ')
+        a = jouer_coup(id, b, c)
+        if a.get('message'):
+            print(a)
+        elif a.get('gagnant'):
+            print(afficher_damier_ascii(a['état']))
+            print(str(a['gagnant']) + ' est l\'ultime champion!!')
+            v += 1
+        else:
+            print(afficher_damier_ascii(a['état']))
