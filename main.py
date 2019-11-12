@@ -12,7 +12,7 @@ def analyser_commande():
     return args
 
 if __name__ == "__main__":
-    print(analyser_commande())
+    a = analyser_commande()
 
 def afficher_damier_ascii(dico):
     "Afiche le jeu avec un dictionnaire état"
@@ -36,20 +36,27 @@ def afficher_damier_ascii(dico):
 if analyser_commande().lister:
     print(api.lister_partie(analyser_commande().idul))
 else:
-    IDUL = analyser_commande().idul
+    IDUL = a.idul
     v = api.debuter_partie(IDUL)
-    print(afficher_damier_ascii(v['état']))
-    CTE = v['id']
-    v = 0
-    while v < 1:
-        b = input('type de coup ? D, MH ou MV ')
-        c = input('point ? (x, y) ')
-        a = api.jouer_coup(CTE, b, c)
-        if a.get('message'):
-            print(a)
-        elif a.get('gagnant'):
-            print(afficher_damier_ascii(a['état']))
-            print(str(a['gagnant']) + ' GAGNE!!')
-            v += 1
-        else:
-            print(afficher_damier_ascii(a['état']))
+    print(v)
+    if v.get('message') is not None:
+        print(v['message'])
+    else:
+        q = afficher_damier_ascii(v['état'])
+        print(q)
+        CTE = v['id']
+        v = 0
+        while v < 1:
+            b = input('type de coup ? D, MH ou MV ')
+            c = input('point ? (x, y) ')
+            a = api.jouer_coup(CTE, b, c)
+            if a.get('message'):
+                print(q)
+                print(a['message'])
+            elif a.get('gagnant'):
+                print(afficher_damier_ascii(a['état']))
+                print(str(a['gagnant']) + ' GAGNE!!')
+                v += 1
+            else:
+                q = afficher_damier_ascii(a['état'])
+                print(q)
