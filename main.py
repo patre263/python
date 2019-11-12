@@ -17,9 +17,9 @@ def afficher_damier_ascii(dico):
     sui = ''
     for i in range(8):
         sui += str(9-i)+' | '+8*'.   '+'. |'+'\n'+'  |                                   |'+'\n'
-    fin = '1 |' + ' .  '*8 + ' . |'+'\n'+'--|' + '-'*35 + '\n' + 
-    '  | 1   2   3   4   5   6   7   8   9'
-    tot = list(sui+fin)
+    fin = '1 |' + ' .  '*8 + ' . |'+'\n'+'--|' + '-'*35 + '\n'
+    fin2 = '  | 1   2   3   4   5   6   7   8   9'
+    tot = list(sui+fin+fin2)
     for j in range(len(dico)):
         tot[40*(18-2*dico['joueurs'][j]['pos'][1])+4*dico['joueurs'][j]['pos'][0]] = str(j+1)
     for i in dico['murs']['horizontaux']:
@@ -47,7 +47,7 @@ else:
         elif a.get('gagnant'):
             print(afficher_damier_ascii(a['état']))
             print(str(a['gagnant']) + ' GAGNE!!')
-            
+            v += 1
         else:
             print(afficher_damier_ascii(a['état']))
-            v += 1
+            
