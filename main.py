@@ -1,7 +1,6 @@
-"Argphase permet d'appeler le main dans la bare de commande et d'avoir une option help"
-"Permet d'utiliser les fonctions faites dans le fichier api"
-import argparse 
-import api 
+"Argphase et api donne accès ades commandes qu'on a besoin"
+import argparse
+import api
 
 def analyser_commande():
     "Initialise le argparse"
