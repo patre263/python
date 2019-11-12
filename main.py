@@ -4,8 +4,8 @@ from api import *
 def analyser_commande():
     parser = argparse.ArgumentParser(description='Donne un nom au joueur')
     parser.add_argument('idul', help='un nom pour le joueur')
-    parser.add_argument('-l', '--lister', action='store_true', 
-    help='Lister les identifiants de vos 20 dernières parties.')
+    parser.add_argument('-l', '--lister', action='store_true',
+                        help='Lister les identifiants de vos 20 dernières parties.')
     args = parser.parse_args()
     return args
 
@@ -36,12 +36,12 @@ else:
     IDUL = analyser_commande().idul
     v = debuter_partie(IDUL)
     print(afficher_damier_ascii(v['état']))
-    identifian = (v['id'])
+    w = (v['id'])
     v = 0
     while v < 1:
         b = input('type de coup ? D, MH ou MV ')
         c = input('point ? (x, y) ')
-        a = jouer_coup(identifian, b, c)
+        a = jouer_coup(w, b, c)
         if a.get('message'):
             print(a)
         elif a.get('gagnant'):
@@ -50,4 +50,4 @@ else:
             v += 1
         else:
             print(afficher_damier_ascii(a['état']))
-            
+          
