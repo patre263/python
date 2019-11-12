@@ -1,7 +1,10 @@
 import argparse
-from api import *
+"Argphase permet d'appeler le main dans la bare de commande et d'avoir une option help"
+import api
+"Permet d'utiliser les fonctions faites dans le fichier api"
 
 def analyser_commande():
+    "Initialise le argparse"
     parser = argparse.ArgumentParser(description='Donne un nom au joueur')
     parser.add_argument('idul', help='un nom pour le joueur')
     parser.add_argument('-l', '--lister', action='store_true',
@@ -13,6 +16,7 @@ if __name__ == "__main__":
     print(analyser_commande())
 
 def afficher_damier_ascii(dico):
+    "Afiche le jeu avec un dictionnaire état"
     deb = 'Légende: 1='+str(dico['joueurs'][0]['nom'])+' 2=automate'+'\n'+'   '+35*'-'+'\n'
     sui = ''
     for i in range(8):
@@ -31,17 +35,17 @@ def afficher_damier_ascii(dico):
     return deb + ''.join(tot)
 
 if analyser_commande().lister:
-    print(lister_partie(analyser_commande().idul))
+    print(api.lister_partie(analyser_commande().idul))
 else:
     IDUL = analyser_commande().idul
-    v = debuter_partie(IDUL)
+    v = api.debuter_partie(IDUL)
     print(afficher_damier_ascii(v['état']))
-    w = (v['id'])
+    cte = v['id']
     v = 0
     while v < 1:
         b = input('type de coup ? D, MH ou MV ')
         c = input('point ? (x, y) ')
-        a = jouer_coup(w, b, c)
+        a = api.jouer_coup(cte, b, c)
         if a.get('message'):
             print(a)
         elif a.get('gagnant'):
@@ -50,4 +54,3 @@ else:
             v += 1
         else:
             print(afficher_damier_ascii(a['état']))
-          
