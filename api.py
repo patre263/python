@@ -1,5 +1,5 @@
-import requests
 "Importe le module requests qui permet d'appeler le serveur"
+import requests
 
 def lister_partie(idulenchaine):
     "permet au joueur de parcourir l'historique de ses 20 dernières parties"

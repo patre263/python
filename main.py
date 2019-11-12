@@ -1,7 +1,7 @@
-import argparse
 "Argphase permet d'appeler le main dans la bare de commande et d'avoir une option help"
-import api
 "Permet d'utiliser les fonctions faites dans le fichier api"
+import argparse 
+import api 
 
 def analyser_commande():
     "Initialise le argparse"
@@ -40,12 +40,12 @@ else:
     IDUL = analyser_commande().idul
     v = api.debuter_partie(IDUL)
     print(afficher_damier_ascii(v['état']))
-    cte = v['id']
+    CTE = v['id']
     v = 0
     while v < 1:
         b = input('type de coup ? D, MH ou MV ')
         c = input('point ? (x, y) ')
-        a = api.jouer_coup(cte, b, c)
+        a = api.jouer_coup(CTE, b, c)
         if a.get('message'):
             print(a)
         elif a.get('gagnant'):
