@@ -38,7 +38,6 @@ if analyser_commande().lister:
 else:
     IDUL = a.idul
     v = api.débuter_partie(IDUL)
-    print(v)
     if v.get('message') is not None:
         print(v['message'])
     else:
@@ -50,13 +49,12 @@ else:
             b = input('Veuillez choisir un type de coup ! D, MH ou MV : ')
             c = input('Sélectionnez un point ! (x, y) : ')
             a = api.jouer_coup(CTE, b, c)
-            if a.get('message'):
+            if str(a) == a:
+                if str(a) == 'robot' or (a) == str(IDUL):
+                    print(a)
+                    v += 1
                 print(q)
-                print(a['message'])
-            elif a.get('gagnant'):
-                print(afficher_damier_ascii(a['état']))
-                print(str(a['gagnant']) + ' GAGNE!!')
-                v += 1
+                print(a)
             else:
                 q = afficher_damier_ascii(a['état'])
                 print(q)

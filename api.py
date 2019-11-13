@@ -24,7 +24,7 @@ def débuter_partie(idulenchaine):
             raise RuntimeError
         return rep
     except RuntimeError:
-        return rep
+        return rep['message']
 
 def jouer_coup(id_p, type_c, pos):
     "permet au joueur de jouer un coup dans sa partie avec le type de coup et le point"
@@ -38,6 +38,6 @@ def jouer_coup(id_p, type_c, pos):
             raise StopIteration
         return a
     except RuntimeError:
-        return a
+        return a['message']
     except StopIteration:
-        return a
+        return a['gagnant']
