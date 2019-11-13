@@ -34,10 +34,10 @@ def afficher_damier_ascii(dico):
     return deb + ''.join(tot)
 
 if analyser_commande().lister:
-    print(api.lister_partie(analyser_commande().idul))
+    print(api.lister_parties(analyser_commande().idul))
 else:
     IDUL = a.idul
-    v = api.debuter_partie(IDUL)
+    v = api.débuter_partie(IDUL)
     print(v)
     if v.get('message') is not None:
         print(v['message'])
@@ -47,8 +47,8 @@ else:
         CTE = v['id']
         v = 0
         while v < 1:
-            b = input('type de coup ? D, MH ou MV ')
-            c = input('point ? (x, y) ')
+            b = input('Veuillez choisir un type de coup ! D, MH ou MV : ')
+            c = input('Sélectionnez un point ! (x, y) : ')
             a = api.jouer_coup(CTE, b, c)
             if a.get('message'):
                 print(q)
@@ -60,3 +60,4 @@ else:
             else:
                 q = afficher_damier_ascii(a['état'])
                 print(q)
+

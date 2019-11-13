@@ -1,7 +1,7 @@
 "Importe le module requests qui permet de faire des requetes au serveur"
 import requests
 
-def lister_partie(idulenchaine):
+def lister_parties(idulenchaine):
     "permet au joueur de parcourir l'historique de ses 20 dernières parties"
     url_base = 'https://python.gel.ulaval.ca/quoridor/api/'
     rep = requests.get(url_base+'lister/', params={'idul':idulenchaine})
@@ -12,9 +12,9 @@ def lister_partie(idulenchaine):
             raise RuntimeError
         return rep
     except RuntimeError:
-        return rep
+        return rep['message']
 
-def debuter_partie(idulenchaine):
+def débuter_partie(idulenchaine):
     "Permet au joueur de débuter une partie avec son idul"
     url_base = 'https://python.gel.ulaval.ca/quoridor/api/'
     rep = requests.post(url_base+'débuter/', data={'idul': idulenchaine})
