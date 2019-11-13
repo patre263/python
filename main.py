@@ -60,4 +60,3 @@ else:
             else:
                 q = afficher_damier_ascii(a['état'])
                 print(q)
-
