@@ -51,10 +51,11 @@ else:
             a = api.jouer_coup(CTE, b, c)
             if str(a) == a:
                 if str(a) == 'robot' or (a) == str(IDUL):
-                    print(a)
+                    print(a + 'GAGNE !')
                     v += 1
-                print(q)
-                print(a)
+                else:
+                    print(q)
+                    print(a)
             else:
                 q = afficher_damier_ascii(a['état'])
                 print(q)
