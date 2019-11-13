@@ -4,8 +4,8 @@ import api
 
 def analyser_commande():
     "Initialise le argparse"
-    parser = argparse.ArgumentParser(description='Donne un nom au joueur')
-    parser.add_argument('idul', help='un nom pour le joueur')
+    parser = argparse.ArgumentParser(description='Jeu Quoridor - phase 1')
+    parser.add_argument('idul', help='IDUL du joueur.')
     parser.add_argument('-l', '--lister', action='store_true',
                         help='Lister les identifiants de vos 20 dernières parties.')
     args = parser.parse_args()
@@ -34,7 +34,7 @@ def afficher_damier_ascii(dico):
     return deb + ''.join(tot)
 
 if analyser_commande().lister:
-    print(api.lister_parties(analyser_commande().idul))
+    print(api.lister_parties(analyser_commande().idul)['parties'])
 else:
     IDUL = a.idul
     v = api.débuter_partie(IDUL)
