@@ -51,7 +51,7 @@ else:
             a = api.jouer_coup(CTE, b, c)
             if str(a) == a:
                 if str(a) == 'robot' or (a) == str(IDUL):
-                    print(a + 'GAGNE !')
+                    print(a + ' GAGNE !')
                     v += 1
                 else:
                     print(q)
